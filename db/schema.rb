@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_033330) do
     t.string "name"
     t.boolean "real"
     t.float "weight"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_items_on_name"
