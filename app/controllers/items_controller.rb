@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
   end
     def create
       item = Item.create(items_params)
+
       if item.persisted? 
         render json: item.name, status: :created
       else
@@ -16,15 +17,38 @@ class ItemsController < ApplicationController
     end
   end 
 
-  def new; end 
+  def new; end
+
   def show
      unless (@item = Item.where(id: params[:id]).first)
        render body: 'Page not found', status: 404
     end
   end
-  def edit; end 
-  def update; end
-  def destroy; end
+
+  def edit
+    unless (@item = Item.where(id: params[:id]).first)
+      render body: 'Page not found', status: 404
+    end
+   end
+
+  def update
+    item = Item.where(id: params[:id]).first
+    if item.update(items_params)
+    redirect_to item_path
+    else
+      render json: item.errors, status: :unprocessable_entity
+    end
+   end
+
+  def destroy
+    item = Item.where(id: params[:id]).first.destroy
+
+    if item.destroyed?
+      redirect_to items_path
+    else
+      render json: item.errors, status: :unprocessable_entity
+    end
+   end
 
 
 
