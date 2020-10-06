@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
       item = Item.create(items_params)
 
       if item.persisted? 
-        render json: item.name, status: :created
+        redirect_to items_path
       else
         render json: item.errors, status: :unprocessable_entity
     end
