@@ -1,8 +1,10 @@
 class ItemsController < ApplicationController
   layout false
   skip_before_action :verify_authenticity_token
-  before_action :find_item, only: %i[ show edit destroy]
+  before_action :find_item, only: %i[ show edit destroy upvote]
   before_action :admin?, only: %i[ edit update new create destroy]
+  after_action :show_info, only: %i[index]
+
 
     def index
         @items = Item.all
@@ -22,16 +24,12 @@ class ItemsController < ApplicationController
   def new; end
 
   def show 
-    unless @item
-       render body: 'Page not found', status: 404 
+       render body: 'Page not found', status: 404 unless @item
     end
-  end
 
   def edit
-    unless @item 
-      render body: 'Page not found', status: 404 
+      render body: 'Page not found', status: 404 unless @item
     end
-  end
 
   def update
     if @item.update(items_params)
@@ -48,6 +46,15 @@ class ItemsController < ApplicationController
       render json: item.errors, status: :unprocessable_entity
     end
    end
+   def upvote
+    @item.increment! :votes_count
+    redirect_to items_pth 
+   end
+
+   def expensive
+    @items = Item.where('price > 50')
+    render :index
+   end
 
 
 
@@ -62,7 +69,12 @@ class ItemsController < ApplicationController
     end
     
     def admin?
-      render json: 'Access denied', status: :forbidden unless params[:admin]
-    end  
+      true
+      #render json: 'Access denied', status: :forbidden unless params[:admin]
+    end 
+    
+    def show_info
+      puts 'Index endpoint'
+    end
 
 end 
