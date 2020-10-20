@@ -2,8 +2,8 @@ class ItemsController < ApplicationController
   layout false
   skip_before_action :verify_authenticity_token
   before_action :find_item, only: %i[ show edit destroy upvote]
-  before_action :admin?, only: %i[ edit update new create destroy]
-  after_action :show_info, only: %i[index]
+  before_action :admin?,    only: %i[ edit ]
+  after_action :show_info,  only: %i[ index]
 
 
     def index
@@ -24,11 +24,11 @@ class ItemsController < ApplicationController
   def new; end
 
   def show 
-       render body: 'Page not found', status: 404 unless @item
+       #render body: 'Page not found', status: 404 unless @item
     end
 
   def edit
-      render body: 'Page not found', status: 404 unless @item
+      #render body: 'Page not found', status: 404 unless @item
     end
 
   def update
@@ -66,10 +66,11 @@ class ItemsController < ApplicationController
     
     def find_item
       @item = Item.where(id: params[:id]).first
+      render_404 unless @item
     end
     
     def admin?
-      true
+      render_403 unless params[:admin]
       #render json: 'Access denied', status: :forbidden unless params[:admin]
     end 
     
