@@ -17,5 +17,7 @@ test:
   <<: *default
   database: rails_course_test
 
+production:
+  adapter: postgresql 
 
 
