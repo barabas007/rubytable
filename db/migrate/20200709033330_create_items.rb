@@ -13,3 +13,4 @@ class CreateItems < ActiveRecord::Migration[6.0]
     add_index :items, :name
   end
 end
+git push
