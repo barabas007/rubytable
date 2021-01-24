@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(items_params)
-      redirect_to item_path
+      redirect_to items_path
     else
       render json: item.errors, status: :unprocessable_entity
     end
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
     private
 
     def items_params
-      params.permit(:name, :price,)
+      params.permit(:name, :price, :description)
     end
     
     def find_item
@@ -70,7 +70,8 @@ class ItemsController < ApplicationController
     end
     
     def admin?
-      render_403 unless params[:admin]
+      true
+      #render_403 unless params[:admin]
       #render json: 'Access denied', status: :forbidden unless params[:admin]
     end 
     
