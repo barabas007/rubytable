@@ -6,4 +6,11 @@ class ApplicationController < ActionController::Base
     def render_404
         render file: 'public/404.html', status: :not_found
     end
+
+    def admin?
+    
+        render_403 unless params[:admin]
+        #render json: 'Access denied', status: :forbidden unless params[:admin]
+          
+    end
 end
