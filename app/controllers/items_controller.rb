@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
 
 
     def index
-        @items = Item.all
+        @items = Item.all.order(:price).limit 3
        # render body: @items.map {|i| "#{i.name}: #{i.price}:"}  
     
   end
