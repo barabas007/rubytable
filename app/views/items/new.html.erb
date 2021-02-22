@@ -1,9 +1,11 @@
+<div class="col-sm-12 my-auto">
+
 <h2 style="color: #B00100; margin: 0 auto">Create new item</h2>
     <h2 style="color: #B00100;">User Panel</h2>
     <p style="color: #B00100"><%= flash[:error]%></p>
     <p style="color: #B00100"><%= flash[:success]%></p>
 
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <!--<form action="/items/new" metod="post">
 <label>
@@ -13,14 +15,14 @@
 
 </form>-->
 
-<%=form_tag items_path, method: :post do %>
-    <%= label_tag :name%>
-    <%= text_field_tag :name%>
-    <%= label_tag :price%>
-    <%= text_field_tag :price%>
-    <%= label_tag :description%>
-    <%= text_field_tag :description%>
-    <%= submit_tag "Save", class: "btn btn-large btn-primary"%>
+<%= simple_form_for @item do |f| %>
+    <%= f.input :name, label: 'Name', input_html: { class: "form-text"} %>
+    <%= f.input :price, label: 'Price', input_html: { class: "form-text"},required: true %>
+    <%= f.input :description, label: 'Description', input_html: { class: "form-text"} %>
+
+
+    <%= f.button :submit, class: "btn btn-large btn-primary" %>
 <%end%>
 
 <%= render partial: 'shared/email' %>
+</div>

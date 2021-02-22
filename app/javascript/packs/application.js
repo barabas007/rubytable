@@ -23,3 +23,6 @@ require.context('../images', true)
 //require("channels")
 //require("jquery")
 //import  './../css/site.css' ; 
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets 

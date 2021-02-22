@@ -7,18 +7,21 @@ class ItemsController < ApplicationController
 
 
     def index
-      @items = Item
-      @items = @items.where('price >= ?', params[:price_from]) if params[:price_from]
-      @items = @items.where('created_at >= ?', 1.day.ago)      if params[:today]
-      @items = @items.where('votes_count >= ?', params[:votes_from]) if params[:votes_from]
-      @items = @items.order(:id)
+      @items = Item.all
+      
+      #@items = Item
+      #@items = @items.where('price >= ?', params[:price_from]) if params[:price_from]
+      #@items = @items.where('created_at >= ?', 1.day.ago)      if params[:today]
+      #@items = @items.where('votes_count >= ?', params[:votes_from]) if params[:votes_from]
+      #@items = @items.order(:id)
+      
        # render body: @items.map {|i| "#{i.name}: #{i.price}:"}  
     
   end
     def create
-      item = Item.create(items_params)
+      @item = Item.create(items_params)
 
-      if item.persisted?
+      if @item.persisted?
         flash[:success] = 'Item was saved' 
         redirect_to items_path
       else
@@ -27,7 +30,9 @@ class ItemsController < ApplicationController
     end
   end 
 
-  def new; end
+  def new
+    @item = Item.new
+   end
 
   def show 
        #render body: 'Page not found', status: 404 unless @item
@@ -52,13 +57,13 @@ class ItemsController < ApplicationController
       flash[:success] = 'Item was deleted'
       redirect_to items_path
     else
-      flash[:error] = "Item wasn't deleted"
+      flash.now[:error] = "Item wasn't deleted"
       render json: item.errors, status: :unprocessable_entity
     end
    end
    def upvote
     @item.increment! :votes_count
-    redirect_to items_pth 
+    redirect_to items_path 
    end
 
    def expensive
@@ -71,7 +76,7 @@ class ItemsController < ApplicationController
     private
 
     def items_params
-      params.permit(:name, :price, :description)
+      params.require(:item).permit(:name, :price, :description)
     end
     
     def find_item
