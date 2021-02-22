@@ -6,6 +6,7 @@ class Item < ApplicationRecord
   has_many :carts, through: :positions
   has_many :comments, as: :commentable
   has_one :image, as: :imageable 
+  has_and_belongs_to_many :orders
 
 
   #after_initialize{p 'initialize'} #Item.new Item.first
