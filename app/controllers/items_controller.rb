@@ -7,7 +7,9 @@ class ItemsController < ApplicationController
 
 
     def index
-      @items = Item.all
+      @items = Item.all.order(:id)
+      
+      #@items = @tems.includes(:image)
       
       #@items = Item
       #@items = @items.where('price >= ?', params[:price_from]) if params[:price_from]

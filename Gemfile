@@ -36,6 +36,7 @@ gem 'bootstrap', '~> 4.5.2'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'simple_form'
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 
 
 group :development, :test do
@@ -44,6 +45,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
   gem 'factory_bot'
+  gem 'rails-controller-testing'
 end
 
 group :development do
