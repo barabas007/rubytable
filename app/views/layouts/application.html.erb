@@ -6,17 +6,22 @@
     <%= csp_meta_tag %>
     
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> 
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %> 
+    <!--<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> -->
+    
   
   </head>
 
   <body>
   <h1>Rails</h1>
+  <!-- devise -->
+    <%= render 'include/auth/auth_header' %>
+    
+  <!--devise-->
   
-    <!--<h2 style="color: #B00100;">User Panel</h2>
-    <p style="color: #B00100"><%= flash[:error]%></p>
+    <h2 style="color: #B00100;">User Panel</h2>
+    <!--<p style="color: #B00100"><%= flash[:error]%></p>
     <p style="color: #B00100"><%= flash[:success]%></p>-->
+    <%= render 'include/main/notification' %>
     <%= yield %>
   </body>
 </html>

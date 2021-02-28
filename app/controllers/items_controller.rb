@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  layout false 
+  #layout false 
   skip_before_action :verify_authenticity_token
   before_action :find_item, only: %i[ show edit destroy upvote]
   before_action :admin?,    only: %i[ edit ]
@@ -57,7 +57,8 @@ class ItemsController < ApplicationController
   def destroy
     if @item.destroy.destroyed?
       flash[:success] = 'Item was deleted'
-      redirect_to items_path
+      render json: { success: true }
+      #redirect_to items_path
     else
       flash.now[:error] = "Item wasn't deleted"
       render json: item.errors, status: :unprocessable_entity

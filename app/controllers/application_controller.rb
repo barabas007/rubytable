@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    layout false
+    #layout false
     def render_403
         render file: 'public/403.html', status: :forbidden
     end
